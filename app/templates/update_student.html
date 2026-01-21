@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Student</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+</head>
+<body>
+
+<div class="form-card">
+    <h2>Update Student</h2>
+
+    <!-- 🔴 SHOW VALIDATION ERRORS -->
+    {% if errors %}
+        <div style="
+            color: red;
+            background-color: #ffe6e6;
+            border: 1px solid red;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        ">
+            <ul style="margin: 0; padding-left: 18px;">
+                {% for field, messages in errors.items %}
+                    {% for message in messages %}
+                        <li><strong>{{ field|capfirst }}:</strong> {{ message }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input type="text"
+               name="name"
+               value="{{ student.name }}"
+               pattern="[A-Za-z ]+"
+               title="Name should contain only letters"
+               required>
+
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               value="{{ student.email }}"
+               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in)$"
+               title="Email must end with .com or .in"
+               required>
+
+        <label>Contact Number</label>
+        <input type="text"
+               name="contact_no"
+               value="{{ student.contact_no }}"
+               pattern="[1-9][0-9]{9}"
+               title="10 digits, must not start with 0"
+               required>
+
+        <label>Age</label>
+        <input type="number"
+               name="age"
+               min="18" max="99"
+               value="{{ student.age }}"
+               required>
+
+        <label>Date of Joining</label>
+        <input type="date"
+               name="date_of_joining"
+               value="{{ student.date_of_joining|date:'Y-m-d' }}"
+               required>
+
+        <label>Internship Period (months)</label>
+        <input type="number"
+               name="internship_period"
+               value="{{ student.internship_period }}"
+               required>
+
+        <label>Update 10th Marksheet</label>
+        <input type="file" name="marksheet_10">
+
+        <label>Update 12th Marksheet</label>
+        <input type="file" name="marksheet_12">
+
+        <button type="submit">Update Student</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 15px;">
+        <a href="{% url 'read_student' %}" style="color: #2b6cb0; font-weight: 600;">
+            ← Back to Student List
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

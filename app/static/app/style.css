@@ -1,0 +1,212 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7fafc;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th {
+    background-color: #38a169;
+    color: white;
+    padding: 12px;
+    text-align:left;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Zebra rows for table */
+table tr:nth-child(even) {
+    background-color: #edf2f7;
+}
+
+/* Hover effect on table rows */
+table tr:hover {
+    background-color: #e6fffa;
+}
+
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e0f7fa;
+}
+
+a {
+    text-decoration: none;
+    color: #2b6cb0;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration:underline;
+    color: #2e7d32;
+}
+
+
+
+input, button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #388e3c;
+}
+
+/* ===== FORM CARD ===== */
+.form-card {
+    width: 420px;
+    margin: 60px auto;
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* ===== FORM HEADING ===== */
+.form-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2f855a;
+}
+
+/* ===== FORM FIELDS ===== */
+.form-card label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.form-card input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e0;
+    font-size: 14px;
+}
+
+.form-card input:focus {
+    outline: none;
+    border-color: #38a169;
+}
+
+/* ===== FORM BUTTON ===== */
+.form-card button {
+    width: 100%;
+    padding: 10px;
+    background-color: #38a169;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-card button:hover {
+    background-color: #2f855a;
+}
+
+.pagination a:hover {
+    background-color: #38a169;
+    color: white;
+}
+
+/* ☰ Button */
+.menu-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 22px;
+    background: #2f855a;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Sidebar hidden by default */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px;   /* hidden */
+    width: 220px;
+    height: 100%;
+    background-color: #1a202c;
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+/* Sidebar visible */
+.sidebar.active {
+    left: 0;
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar a:hover {
+    background-color: #2f855a;
+}
+
+.icon-btn {
+    width: auto !important;
+    padding: 0;
+    background: none;
+}
+
+/* ===== TABLE HEADER SORT LINKS ===== */
+table th a {
+    color: white;              /* make text white */
+    text-decoration: none;     /* remove underline */
+    font-weight: bold;
+}
+
+table th a:hover {
+    color: #e6fffa;            /* light hover effect (optional*/
+}
+
+/* ===== FORCE WHITE SORT HEADER LINKS ===== */
+table thead th a,
+table thead th a:visited,
+table thead th a:hover,
+table thead th a:active {
+    color: white !important;
+    text-decoration: none !important;
+}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- ===== DASHBOARD HEADING ===== -->
+<div style="margin-bottom: 25px;">
+    <h2 style="color:#1f2937; font-weight:700;">📊 Dashboard</h2>
+    <p style="color:#6b7280; font-size:14px;">
+        Overview of student and internship data
+    </p>
+</div>
+
+<!-- ===== DASHBOARD CARDS ===== -->
+<div style="
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+">
+
+    <!-- TOTAL STUDENTS -->
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    ">
+        <h4 style="color:#374151;">👥 Total Students</h4>
+        <p style="font-size:28px; font-weight:bold; color:#2563eb;">
+            {{ total_students }}
+        </p>
+    </div>
+
+    <!-- ACTIVE INTERNSHIPS -->
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    ">
+        <h4 style="color:#374151;">🟢 Active Internships</h4>
+        <p style="font-size:28px; font-weight:bold; color:#16a34a;">
+            {{ active_internships }}
+        </p>
+    </div>
+
+    <!-- COMPLETED INTERNSHIPS -->
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    ">
+        <h4 style="color:#374151;">✅ Completed Internships</h4>
+        <p style="font-size:28px; font-weight:bold; color:#dc2626;">
+            {{ completed_internships }}
+        </p>
+    </div>
+
+    <!-- JOINED THIS MONTH -->
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    ">
+        <h4 style="color:#374151;">📅 Joined This Month</h4>
+        <p style="font-size:28px; font-weight:bold; color:#7c3aed;">
+            {{ joined_this_month }}
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

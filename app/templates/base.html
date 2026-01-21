@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 220px;
+            background-color: #1f2937;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            top: 0;
+            left: -220px;          /* hidden initially */
+            height: 100%;
+            z-index: 1000;
+            transition: left 0.3s ease-in-out;   /* SLIDE EFFECT */
+        }
+
+        .sidebar.active {
+            left: 0;               /* slide in */
+        }
+
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background-color: #374151;
+            color: white;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            flex: 1;
+            padding: 10px 20px;
+        }
+
+        .sidebar a.active {
+            background-color: #2563eb;
+            color: white;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+{% if user.is_authenticated %}
+<div class="layout">
+
+    <!-- 🔹 SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <h3>☰  Menu </h3>
+        <a href="{% url 'read_student' %}"
+            class="{% if request.resolver_match.url_name == 'read_student' %}active{% endif %}">
+            📋 Student Records
+        </a>
+        <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+
+        <a href="{% url 'activity_logs' %}">🧾 Activity Logs</a>
+
+        <a href="{% url 'import_students' %}">📥 Import</a>
+
+        <a href="{% url 'recycle_bin' %}">🗑 Recycle Bin</a>
+
+    </div>
+
+    <!-- 🔹 MAIN CONTENT -->
+    <div class="main">
+
+        <!-- PAGE HEADER -->
+        <div style="text-align:center; margin: 1px 0 1px;">
+    <h1 style="
+        font-size: 28px;
+        font-weight: 800;
+        color: #2f855a;
+        margin-bottom: 5px;
+    ">
+        🎓 Student Records
+    </h1>
+    <div style="
+        width: 80px;
+        height: 4px;
+        background-color: #38a169;
+        margin: 0 auto;
+        border-radius: 2px;
+    "></div>
+</div>
+
+        <!-- ☰ MENU BUTTON (LEFT, BELOW HEADING) -->
+        <div style="
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin: 8px 0 12px 0;
+        ">
+            <button id="menuToggle"
+                    style="
+                        
+                        top: 50px;           /* below heading */
+                        left: 20px;          /* left corner */
+                        
+                        width:auto;
+                        font-size: 24px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                    
+                        color: #00050c;
+                    ">
+                ☰
+            </button>
+        </div>
+
+        <!-- PAGE CONTENT -->
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</div>
+
+{% else %}
+    {% block auth_content %}{% endblock %}
+{% endif %}
+
+<script>
+    const toggleBtn = document.getElementById("menuToggle");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        sidebar.classList.toggle("active");
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener("click", function (e) {
+        if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+</script>
+
+
+<script>
+function printStudentTable() {
+    const printContents = document.getElementById("print-area").innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = `
+        <html>
+            <head>
+                <title>Student Records</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid #000;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                    th {
+                        background-color: #f2f2f2;
+                    }
+                </style>
+            </head>
+            <body>
+                <h2>Student Records</h2>
+                ${printContents}
+            </body>
+        </html>
+    `;
+
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload(); // restore events
+}
+</script>
+
+
+</body>
+</html>

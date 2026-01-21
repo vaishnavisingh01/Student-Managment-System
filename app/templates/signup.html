@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+</head>
+<body>
+
+<div class="form-card">
+
+    <h2>Create Account</h2>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div style="
+                padding: 8px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                font-size: 13px;
+                {% if message.tags == 'error' %}
+                    background-color: #ffe6e6;
+                    color: #c53030;
+                    border: 1px solid #c53030;
+                {% else %}
+                    background-color: #e6fffa;
+                    color: #065f46;
+                    border: 1px solid #38b2ac;
+                {% endif %}
+            ">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p style="text-align:center; margin-top: 10px; font-size: 13px;">
+        Already have an account?
+        <a href="{% url 'login' %}">Login</a>
+    </p>
+
+</div>
+
+</body>
+</html>

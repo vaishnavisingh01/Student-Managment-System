@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Recycle Bin{% endblock %}
+{% block content %}
+
+<h2>🗑 Recycle Bin</h2>
+
+{% if students %}
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Deleted</th>
+        <th>Action</th>
+    </tr>
+
+    {% for student in students %}
+    <tr>
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>Yes</td>
+        <td>
+            <a href="{% url 'restore_student' student.id %}"
+                style="color: green; font-weight: bold;">
+                Restore
+            </a>
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No deleted records.</p>
+{% endif %}
+
+{% endblock %}

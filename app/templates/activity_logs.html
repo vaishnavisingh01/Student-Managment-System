@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Activity Logs{% endblock %}
+
+{% block content %}
+
+<h2 style="
+    margin-bottom: 15px;
+    color: #2f855a;
+">
+    🧾 Activity Logs
+</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Description</th>
+        <th>Date & Time</th>
+    </tr>
+
+    {% for log in logs %}
+    <tr>
+        <td>
+            {% if log.user %}
+                {{ log.user.username }}
+            {% else %}
+                System
+            {% endif %}
+        </td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.description }}</td>
+        <td>{{ log.created_at|date:"d M Y, H:i" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

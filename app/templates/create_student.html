@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+</head>
+<body>
+
+<div class="form-card">
+    <h2>Add Student</h2>
+
+    <!-- 🔴 SHOW VALIDATION ERRORS -->
+    {% if errors %}
+        <div style="
+            color: red;
+            background-color: #ffe6e6;
+            border: 1px solid red;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        ">
+            <ul style="margin: 0; padding-left: 18px;">
+                {% for field, messages in errors.items %}
+                    {% for message in messages %}
+                        <li><strong>{{ field|capfirst }}:</strong> {{ message }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input type="text" name="name"
+               pattern="[A-Za-z ]+"
+               title="Name should contain only letters"
+               required>
+
+        <label>Email</label>
+        <input type="email" name="email"
+               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in)$"
+               title="Email must end with .com or .in"
+               required>
+
+        <label>Contact Number</label>
+        <input type="text" name="contact_no" required>
+
+        <label>Age</label>
+        <input type="number" name="age"
+               min="18" max="99"
+               required>
+
+        <label>Date of Joining</label>
+        <input type="date" name="date_of_joining" required>
+
+        <label>Internship Period (months)</label>
+        <input type="number" name="internship_period" required>
+
+        <label>10th Marksheet</label>
+        <input type="file" name="marksheet_10" required>
+
+        <label>12th Marksheet</label>
+        <input type="file" name="marksheet_12" required>
+
+        <button type="submit">Add Student</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 15px;">
+        <a href="{% url 'read_student' %}" style="color: #2b6cb0; font-weight: 600;">
+            ← View All Students
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
